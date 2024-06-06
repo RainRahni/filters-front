@@ -30,6 +30,10 @@ body{
   background-color: rgba(248,201,85,.2);
   color: #f8c955;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
 .badge {
   font-weight: 500;

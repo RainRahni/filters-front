@@ -1,0 +1,29 @@
+.filter-header {
+  background-color: #5ebfcc;
+  padding: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#close {
+  position: relative;
+  border: none;
+  padding: 0;
+  width: 2em; height: 2em;
+  color: white;
+  text-indent: 100%;
+
+  &:before, &:after {
+    position: absolute;
+    top: 15%; left: calc(50% - .0625em);
+    width: .125em; height: 70%;
+    border-radius: .125em;
+    transform: rotate(45deg);
+    background: currentcolor;
+    content: ''
+  }
+
+  &:after { transform: rotate(-45deg); }
+}
