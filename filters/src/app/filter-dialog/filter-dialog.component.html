@@ -13,7 +13,12 @@
   </div>
   <form>
     <input formControlName="filterName">
-    <div #rowContainer class="rowContainer"></div>
+    <div #rowContainer class="rowContainer">
+      <app-criteria-row *ngFor="let crit of criteria; index as i"
+                        [formGroup]="crit"
+                        (remove)="removeRow(i)">
+      </app-criteria-row>
+    </div>
   </form>
 
 </div>
