@@ -3,14 +3,15 @@
     <h6>Filter</h6>
     <button class="btn" id="close"></button>
   </div>
-
-  <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+<div class="rowContainer" #rowContainer>
+  <form>
     <label>
       Filter Name
       <input formControlName="filterName">
     </label>
     <app-criteria-row></app-criteria-row>
   </form>
+</div>
 </div>
 <div class="container mt-5">
   <button class="add-row-btn" (click)="addRow()">
