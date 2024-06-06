@@ -1,6 +1,8 @@
 .filter-dialog {
   display: grid;
   grid-template-columns: 1fr 6fr;
+  grid-template-rows: auto 0.5fr auto;
+  height: 100%;
 }
 .labels {
   display: flex;
@@ -59,4 +61,35 @@ label {
   margin-right: 0.5rem;
   font-size: 30px;
 }
-
+.filter-footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+  margin-bottom: 0;
+}
+#close-footer {
+  display: flex;
+  background-color: #6c757d;
+  justify-content: center;
+  color: white;
+  border: none;
+  width: 125px;
+  border-radius: 0.25rem;
+  padding: 5px;
+  margin-right: 10px;
+}
+#save-footer {
+  display: flex;
+  background-color: #156bbb;
+  justify-content: center;
+  color: white;
+  border: none;
+  width: 125px;
+  border-radius: 0.25rem;
+  padding: 5px;
+  margin-left: 10px;
+}
+.rowContainer {
+  overflow-y: auto;
+}
