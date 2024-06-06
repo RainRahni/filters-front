@@ -1,3 +1,13 @@
+.filter-dialog {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+.labels {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding-top: 30px;
+}
 .filter-header {
   background-color: #5ebfcc;
   padding: 10px;
@@ -6,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 form {
   padding: 40px;
 }

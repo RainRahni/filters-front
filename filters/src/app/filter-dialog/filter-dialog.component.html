@@ -1,17 +1,21 @@
+<div class="filter-header">
+  <h6>Filter</h6>
+  <button class="btn" id="close"></button>
+</div>
 <div class="filter-dialog">
-  <div class="filter-header">
-    <h6>Filter</h6>
-    <button class="btn" id="close"></button>
-  </div>
-<div class="rowContainer" #rowContainer>
-  <form>
+  <div class="labels">
     <label>
       Filter Name
-      <input formControlName="filterName">
     </label>
-    <app-criteria-row></app-criteria-row>
+    <label>
+      Criteria
+    </label>
+  </div>
+  <form>
+    <input formControlName="filterName">
+    <div #rowContainer class="rowContainer"></div>
   </form>
-</div>
+
 </div>
 <div class="container mt-5">
   <button class="add-row-btn" (click)="addRow()">
