@@ -1,0 +1,41 @@
+<div class="row-crit" [formGroup]="criteriaForm">
+  <label>Criteria</label>
+  <select formControlName="criteriaType" class="form-select">
+    <option value="Amount">Amount</option>
+    <option value="Title">Title</option>
+    <option value="Date">Date</option>
+  </select>
+  <ng-container *ngIf="criteriaForm.controls['criteriaType'].value === 'Title'">
+    <select formControlName="criteriaCondition" class="form-select">
+      <option>Starts with</option>
+      <option>Ends With</option>
+    </select>
+    <input formControlName="criteriaMetric" type="text" class="form-control">
+  </ng-container>
+
+  <ng-container *ngIf="criteriaForm.controls['criteriaType'].value === 'Date'">
+    <select formControlName="criteriaCondition" class="form-select">
+      <option>From</option>
+      <option>Before</option>
+    </select>
+    <select formControlName="day" class="form-control date">
+      <option *ngFor="let day of days" [value]="day">{{day}}</option>
+    </select>
+    <select formControlName="month" class="form-control date">
+      <option *ngFor="let month of months" [value]="month">{{month}}</option>
+    </select>
+    <select formControlName="year" class="form-control date">
+      <option *ngFor="let year of years" [value]="year">{{year}}</option>
+    </select>
+  </ng-container>
+
+  <ng-container *ngIf="criteriaForm.controls['criteriaType'].value === 'Amount'">
+    <select formControlName="criteriaCondition" class="form-select">
+      <option>More</option>
+      <option>Less</option>
+    </select>
+    <input formControlName="criteriaMetric" type="number" class="form-control">
+  </ng-container>
+
+  <button class="minus" aria-label="Decrease by one"></button>
+</div>

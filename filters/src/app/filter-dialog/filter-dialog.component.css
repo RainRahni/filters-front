@@ -6,7 +6,12 @@
   align-items: center;
   justify-content: space-between;
 }
-
+form {
+  padding: 40px;
+}
+label {
+  padding: 10px;
+}
 #close {
   position: relative;
   border: none;
@@ -28,34 +33,6 @@
   &:after { transform: rotate(-45deg); }
 }
 .form-select {
-  width: 20%;
-}
-.row-crit {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.minus {
-  position: relative;
-  border: none;
-  padding: 0;
-  width: 2em; height: 2em;
-  color: white;
-  text-indent: 100%;
-  background-color: #f24583;
-  border-radius: 5px;
-
-  &:before, &:after {
-    position: absolute;
-    top: 15%; left: calc(50% - .0625em);
-    width: .125em; height: 70%;
-    border-radius: .125em;
-    transform: rotate(90deg);
-    background: currentcolor;
-    content: ''
-  }
-}
-.form-control {
   width: 20%;
 }
 

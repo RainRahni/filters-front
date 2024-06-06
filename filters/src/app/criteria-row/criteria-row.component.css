@@ -1,0 +1,39 @@
+.row-crit {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.minus {
+  position: relative;
+  border: none;
+  padding: 0;
+  width: 2em; height: 2em;
+  color: white;
+  text-indent: 100%;
+  background-color: #f24583;
+  border-radius: 5px;
+
+  &:before, &:after {
+    position: absolute;
+    top: 15%; left: calc(50% - .0625em);
+    width: .125em; height: 70%;
+    border-radius: .125em;
+    transform: rotate(90deg);
+    background: currentcolor;
+    content: ''
+  }
+}
+.row-crit {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 70%;
+}
+
+.form-control, .form-select {
+  flex: auto;
+  max-width: 20%;
+}
+.date {
+  width: 1%;
+}
