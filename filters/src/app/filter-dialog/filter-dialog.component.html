@@ -19,6 +19,7 @@
                         (remove)="removeRow(i)">
       </app-criteria-row>
     </div>
+
   </form>
 
 </div>
@@ -28,8 +29,19 @@
     ADD ROW
   </button>
 </div>
+<div class="mode-selection">
+  <label class="mode-title">Mode</label>
+  <div class="radio-group">
+    <input type="radio" id="modal" name="dialogType" value="modal" formControlName="dialogType">
+    <label for="modal">Modal</label>
+    <input type="radio" id="nonmodal" name="dialogType" value="nonmodal" formControlName="dialogType">
+    <label for="nonmodal">Non-modal</label>
+  </div>
+</div>
+
 
 <div class="filter-footer">
   <button id="close-footer" (click)="onCloseButtonClick()">CLOSE</button>
   <button id="save-footer">SAVE</button>
 </div>
+

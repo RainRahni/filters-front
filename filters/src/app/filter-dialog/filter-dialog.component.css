@@ -1,7 +1,6 @@
 .filter-dialog {
   display: grid;
   grid-template-columns: 1fr 6fr;
-  grid-template-rows: auto 0.5fr auto;
   height: 100%;
   justify-content: center;
 }
@@ -100,3 +99,29 @@ label {
   display: flex;
   justify-content: center;
 }
+.mode-selection {
+  display: flex;
+  align-items: center;
+  padding-left: 35px;
+
+}
+
+.mode-title {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.radio-group label {
+  margin-right: 20px;
+}
+
+

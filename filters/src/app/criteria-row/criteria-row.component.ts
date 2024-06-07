@@ -16,7 +16,7 @@ import {NgForOf, NgIf} from "@angular/common";
 export class CriteriaRowComponent implements OnInit {
   criteriaForm: FormGroup = this.formBuilder.group({
     criteriaType: 'Amount',
-    criteriaCondition: '',
+    criteriaCondition: 'More',
     criteriaMetric: '',
     day: '',
     month: '',

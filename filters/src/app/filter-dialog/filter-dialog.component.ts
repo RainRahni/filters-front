@@ -37,7 +37,7 @@ export class FilterDialogComponent implements OnInit {
   private createCriteriaForm() {
     return this.formBuilder.group({
       criteriaType: 'Amount',
-      criteriaCondition: 'From',
+      criteriaCondition: 'More',
       criteriaMetric: '',
       day: '',
       month: '',
