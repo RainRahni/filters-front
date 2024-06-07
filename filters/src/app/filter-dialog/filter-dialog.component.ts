@@ -4,6 +4,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { CriteriaRowComponent } from '../criteria-row/criteria-row.component';
 import { NgForOf } from '@angular/common';
 import {ResizableDirective} from "../resizable";
+import {Criteria} from "../models/Criteria";
+import {HttpClient} from "@angular/common/http";
+import {FilterService} from "../services/filter.service";
 
 @Component({
   selector: 'app-filter-dialog',
@@ -24,7 +27,10 @@ export class FilterDialogComponent implements OnInit {
 
   @Output() dialogTypeChange = new EventEmitter<string>();
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<FilterDialogComponent>) {
+  constructor(private formBuilder: FormBuilder,
+              public dialogRef: MatDialogRef<FilterDialogComponent>,
+              private http: HttpClient,
+              private filterService: FilterService) {
     this.form = this.formBuilder.group({
       filterName: [''],
       dialogType: ['modal']
@@ -61,4 +67,22 @@ export class FilterDialogComponent implements OnInit {
       year: ''
     });
   }
+  onSaveButtonClick() {
+    const filterName = this.form.value.filterName;
+    const criterias: Criteria[] = this.criteria.map(crit => {
+      return {
+        type: crit.value.criteriaType,
+        comparator: crit.value.criteriaCondition,
+        metric: crit.value.criteriaMetric
+      };
+    });
+    const filterDto = {
+      filterName: filterName,
+      criterias: criterias
+    };
+
+    this.filterService.createNewFilter(filterDto);
+  }
+
+
 }
