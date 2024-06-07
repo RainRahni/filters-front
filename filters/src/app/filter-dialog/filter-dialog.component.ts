@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CriteriaRowComponent } from '../criteria-row/criteria-row.component';
 import {NgForOf} from "@angular/common";
+import {MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-filter-dialog',
@@ -17,8 +18,12 @@ import {NgForOf} from "@angular/common";
 export class FilterDialogComponent implements OnInit {
 
   criteria: FormGroup[] = [];
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<FilterDialogComponent>) { }
+  @Output() closeDialog = new EventEmitter<void>();
 
+  onCloseButtonClick() {
+    this.dialogRef.close();
+  }
   ngOnInit(): void { }
 
   addRow() {

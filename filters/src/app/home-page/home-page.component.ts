@@ -4,7 +4,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Filter} from "../models/Filter";
 import {FilterService} from "../services/filter.service";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {OverlayConfig} from "@angular/cdk/overlay";
 
 
@@ -20,6 +20,7 @@ import {OverlayConfig} from "@angular/cdk/overlay";
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit {
+  public dialogRef!: MatDialogRef<FilterDialogComponent>;
   public filters: Filter[] | undefined;
   public selectedFilter: Filter | undefined;
   public isDialogModal = true;
@@ -28,7 +29,7 @@ export class HomePageComponent implements OnInit {
     this.getCreatedFilters();
   }
   openDialog(): void {
-    const dialogRef = this.dialog.open(FilterDialogComponent, {
+    this.dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '1000px',
       height: '500px',
       maxHeight: '500px',
@@ -47,6 +48,5 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
-
   title = 'filters-front';
 }

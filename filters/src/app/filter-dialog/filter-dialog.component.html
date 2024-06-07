@@ -1,6 +1,6 @@
 <div class="filter-header">
   <h6>Filter</h6>
-  <button class="btn" id="close"></button>
+  <button class="btn" id="close" (click)="onCloseButtonClick()"></button>
 </div>
 <div class="filter-dialog">
   <div class="labels">
@@ -22,7 +22,7 @@
   </form>
 
 </div>
-<div class="container mt-5">
+<div class="container">
   <button class="add-row-btn" (click)="addRow()">
     <i class="bi bi-plus"></i>
     ADD ROW
@@ -30,6 +30,6 @@
 </div>
 
 <div class="filter-footer">
-  <button id="close-footer">CLOSE</button>
+  <button id="close-footer" (click)="onCloseButtonClick()">CLOSE</button>
   <button id="save-footer">SAVE</button>
 </div>

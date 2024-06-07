@@ -3,12 +3,14 @@
   grid-template-columns: 1fr 6fr;
   grid-template-rows: auto 0.5fr auto;
   height: 100%;
+  justify-content: center;
 }
 .labels {
   display: flex;
   flex-direction: column;
-  padding-left: 40px;
+  padding-left: 35px;
   padding-top: 30px;
+  font-weight: bold;
 }
 .filter-header {
   background-color: #5ebfcc;
@@ -59,7 +61,7 @@ label {
 }
 .add-row-btn i {
   margin-right: 0.5rem;
-  font-size: 30px;
+  font-size: 20px;
 }
 .filter-footer {
   display: flex;
@@ -92,4 +94,9 @@ label {
 }
 .rowContainer {
   overflow-y: auto;
+  flex-grow: 1;
+}
+.container {
+  display: flex;
+  justify-content: center;
 }
