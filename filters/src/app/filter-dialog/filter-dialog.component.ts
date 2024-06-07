@@ -1,8 +1,9 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CriteriaRowComponent } from '../criteria-row/criteria-row.component';
-import {NgForOf} from "@angular/common";
-import {MatDialogRef} from "@angular/material/dialog";
+import { NgForOf } from '@angular/common';
+import {ResizableDirective} from "../resizable";
 
 @Component({
   selector: 'app-filter-dialog',
@@ -10,7 +11,8 @@ import {MatDialogRef} from "@angular/material/dialog";
   imports: [
     ReactiveFormsModule,
     CriteriaRowComponent,
-    NgForOf
+    NgForOf,
+    ResizableDirective,
   ],
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.css']
@@ -18,12 +20,27 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class FilterDialogComponent implements OnInit {
 
   criteria: FormGroup[] = [];
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<FilterDialogComponent>) { }
+  form: FormGroup;
+
+  @Output() dialogTypeChange = new EventEmitter<string>();
+
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<FilterDialogComponent>) {
+    this.form = this.formBuilder.group({
+      filterName: [''],
+      dialogType: ['modal']
+    });
+  }
+
   @Output() closeDialog = new EventEmitter<void>();
 
   onCloseButtonClick() {
     this.dialogRef.close();
   }
+
+  onDialogTypeChange() {
+    this.dialogTypeChange.emit(this.form.value.dialogType);
+  }
+
   ngOnInit(): void { }
 
   addRow() {

@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
+import { FilterService } from '../services/filter.service';
+import { Filter } from '../models/Filter';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import {NgForOf, NgIf} from "@angular/common";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Filter} from "../models/Filter";
-import {FilterService} from "../services/filter.service";
-import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {OverlayConfig} from "@angular/cdk/overlay";
-
+declare var $: any;
 
 @Component({
   selector: 'app-home-page',
@@ -17,26 +17,61 @@ import {OverlayConfig} from "@angular/cdk/overlay";
     FilterDialogComponent
   ],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+  styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
   public dialogRef!: MatDialogRef<FilterDialogComponent>;
   public filters: Filter[] | undefined;
   public selectedFilter: Filter | undefined;
   public isDialogModal = true;
+  private dialogTypeChangeSubscription!: Subscription;
+
   constructor(private filterService: FilterService, public dialog: MatDialog) { }
+
   ngOnInit() {
     this.getCreatedFilters();
   }
+
   openDialog(): void {
     this.dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '1000px',
       height: '500px',
       maxHeight: '500px',
       hasBackdrop: this.isDialogModal,
-      panelClass: "custom"
+      disableClose: this.isDialogModal,
+      panelClass: "custom",
+    });
+    this.dialogRef.afterOpened().subscribe(() => {
+      $('.mat-dialog-container').resizable({
+        minHeight: 300,
+        minWidth: 300
+      });
+    });
+    // Ensure any existing subscription is unsubscribed before creating a new one
+    if (this.dialogTypeChangeSubscription) {
+      this.dialogTypeChangeSubscription.unsubscribe();
+    }
+
+    this.dialogTypeChangeSubscription = this.dialogRef.componentInstance.dialogTypeChange.
+    subscribe((dialogType: string) => {
+      if (dialogType === 'nonmodal') {
+        this.dialogRef.disableClose = false;
+        this.isDialogModal = false;
+      } else {
+        this.dialogRef.disableClose = true;
+        this.isDialogModal = true;
+      }
+    });
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      if (this.dialogTypeChangeSubscription) {
+        this.dialogRef.disableClose = true;
+        this.isDialogModal = true;
+        this.dialogTypeChangeSubscription.unsubscribe();
+      }
     });
   }
+
   public getCreatedFilters(): void {
     this.filterService.getCreatedFilters().subscribe(
       (response: Filter[]) => {
@@ -48,5 +83,7 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
-  title = 'filters-front';
+  ngAfterViewInit() {
+    // You can add your initialization logic here
+  }
 }

@@ -1,27 +1,21 @@
-<div class="filter-header">
+  <div class="filter-header">
   <h6>Filter</h6>
   <button class="btn" id="close" (click)="onCloseButtonClick()"></button>
 </div>
 <div class="filter-dialog">
   <div class="labels">
-    <label>
-      Filter Name
-    </label>
-    <label>
-      Criteria
-    </label>
+    <label>Filter Name</label>
+    <label>Criteria</label>
   </div>
-  <form>
-    <input formControlName="filterName">
+  <form [formGroup]="form">
+    <input formControlName="filterName" class="form-control" id="filter-name-input">
     <div #rowContainer class="rowContainer">
       <app-criteria-row *ngFor="let crit of criteria; index as i"
                         [formGroup]="crit"
                         (remove)="removeRow(i)">
       </app-criteria-row>
     </div>
-
   </form>
-
 </div>
 <div class="container">
   <button class="add-row-btn" (click)="addRow()">
@@ -32,14 +26,14 @@
 <div class="mode-selection">
   <label class="mode-title">Mode</label>
   <div class="radio-group">
-    <input type="radio" id="modal" name="dialogType" value="modal" formControlName="dialogType">
+    <input type="radio" id="modal" name="dialogType" value="modal" formControlName="dialogType"
+           (change)="onDialogTypeChange()" checked>
     <label for="modal">Modal</label>
-    <input type="radio" id="nonmodal" name="dialogType" value="nonmodal" formControlName="dialogType">
+    <input type="radio" id="nonmodal" name="dialogType" value="nonmodal" formControlName="dialogType"
+           (change)="onDialogTypeChange()">
     <label for="nonmodal">Non-modal</label>
   </div>
 </div>
-
-
 <div class="filter-footer">
   <button id="close-footer" (click)="onCloseButtonClick()">CLOSE</button>
   <button id="save-footer">SAVE</button>
