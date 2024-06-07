@@ -15,6 +15,5 @@ export class FilterService {
   }
   public createNewFilter(data: any): Observable<any> {
     return this.http.post(`${this.apiServerUrl}/filter`, data);
-
   }
 }

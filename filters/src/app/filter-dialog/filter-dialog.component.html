@@ -1,4 +1,4 @@
-  <div class="filter-header">
+<div class="filter-header">
   <h6>Filter</h6>
   <button class="btn" id="close" (click)="onCloseButtonClick()"></button>
 </div>
@@ -10,8 +10,8 @@
   <form [formGroup]="form">
     <input formControlName="filterName" class="form-control" id="filter-name-input">
     <div #rowContainer class="rowContainer">
-      <app-criteria-row *ngFor="let crit of criteria; index as i"
-                        [formGroup]="crit"
+      <app-criteria-row *ngFor="let crit of criteriaControls; index as i"
+                        [criteriaForm]="crit"
                         (remove)="removeRow(i)">
       </app-criteria-row>
     </div>
@@ -38,4 +38,3 @@
   <button id="close-footer" (click)="onCloseButtonClick()">CLOSE</button>
   <button id="save-footer" (click)="onSaveButtonClick()">SAVE</button>
 </div>
-
