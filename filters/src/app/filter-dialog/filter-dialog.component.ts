@@ -99,7 +99,7 @@ export class FilterDialogComponent implements OnInit {
         this.dialogRef.close();
       },
       error => {
-        console.log(error);
+        alert(error["error"]);
       }
     );
     this.dialogRef.close();
