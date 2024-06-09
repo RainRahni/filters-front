@@ -89,6 +89,10 @@ export class FilterDialogComponent implements OnInit {
         metric: metric
       };
     });
+    if (criterias.length == 0) {
+      alert("Please add at least one Criteria!")
+      return;
+    }
     const filterDto = {
       filterName: filterName,
       criterias: criterias
