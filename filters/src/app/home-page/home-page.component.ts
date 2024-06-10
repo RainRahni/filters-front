@@ -19,7 +19,7 @@ declare var $: any;
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements OnInit, AfterViewInit {
+export class HomePageComponent implements OnInit {
   public dialogRef!: MatDialogRef<FilterDialogComponent>;
   public filters: Filter[] | undefined;
   public selectedFilter: Filter | undefined;
@@ -33,12 +33,15 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(): void {
+    const dialogType = localStorage.getItem('dialogType') ?? 'modal';
+    this.isDialogModal = dialogType === 'modal';
     this.dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '1000px',
       height: '500px',
       maxHeight: '500px',
       hasBackdrop: this.isDialogModal,
       disableClose: this.isDialogModal,
+      position: dialogType === 'nonmodal' ? { bottom: '0px' } : undefined,
       panelClass: "custom",
     });
     this.dialogRef.afterOpened().subscribe(() => {
@@ -47,7 +50,6 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         minWidth: 300
       });
     });
-    // Ensure any existing subscription is unsubscribed before creating a new one
     if (this.dialogTypeChangeSubscription) {
       this.dialogTypeChangeSubscription.unsubscribe();
     }
@@ -82,8 +84,5 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         alert(error.message);
       }
     );
-  }
-  ngAfterViewInit() {
-    // You can add your initialization logic here
   }
 }

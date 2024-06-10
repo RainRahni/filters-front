@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CriteriaRowComponent } from '../criteria-row/criteria-row.component';
@@ -29,7 +29,8 @@ export class FilterDialogComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<FilterDialogComponent>,
               private http: HttpClient,
-              private filterService: FilterService) {
+              private filterService: FilterService,
+              private cdr: ChangeDetectorRef) {
     this.form = this.formBuilder.group({
       filterName: [''],
       dialogType: ['modal'],
@@ -47,11 +48,18 @@ export class FilterDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onDialogTypeChange() {
-    this.dialogTypeChange.emit(this.form.value.dialogType);
+  onDialogTypeChange(dialogType: string) {
+    this.dialogTypeChange.emit(dialogType);
+    localStorage.setItem('dialogType', dialogType);
   }
 
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+    const dialogType = localStorage.getItem('dialogType') ?? 'modal';
+    this.form.patchValue({ dialogType });
+    this.cdr.detectChanges();
+
+  }
 
   addRow() {
     (this.form.get('criteria') as FormArray).push(this.createCriteriaForm());

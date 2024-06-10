@@ -2,6 +2,7 @@
   <h6>Filter</h6>
   <button class="btn" id="close" (click)="onCloseButtonClick()"></button>
 </div>
+
 <div class="filter-dialog">
   <div class="labels">
     <label>Filter Name</label>
@@ -27,13 +28,16 @@
   <label class="mode-title">Mode</label>
   <div class="radio-group">
     <input type="radio" id="modal" name="dialogType" value="modal" formControlName="dialogType"
-           (change)="onDialogTypeChange()" checked>
+           [checked]="form.get('dialogType')?.value === 'modal'"
+           (change)="onDialogTypeChange('modal')">
     <label for="modal">Modal</label>
     <input type="radio" id="nonmodal" name="dialogType" value="nonmodal" formControlName="dialogType"
-           (change)="onDialogTypeChange()">
+           [checked]="form.get('dialogType')?.value === 'nonmodal'"
+           (change)="onDialogTypeChange('nonmodal')">
     <label for="nonmodal">Non-modal</label>
   </div>
 </div>
+
 <div class="filter-footer">
   <button id="close-footer" (click)="onCloseButtonClick()">CLOSE</button>
   <button id="save-footer" (click)="onSaveButtonClick()">SAVE</button>
