@@ -1,7 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HomePageComponent } from './home-page.component';
-import {FormsModule} from "@angular/forms";
+import {HomePageComponent} from './home-page.component';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;

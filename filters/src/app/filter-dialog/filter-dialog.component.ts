@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { CriteriaRowComponent } from '../criteria-row/criteria-row.component';
-import { NgForOf } from '@angular/common';
-import { ResizableDirective } from "../resizable";
-import { Criteria } from "../models/Criteria";
-import { HttpClient } from "@angular/common/http";
-import { FilterService } from "../services/filter.service";
+import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {MatDialogRef} from '@angular/material/dialog';
+import {CriteriaRowComponent} from '../criteria-row/criteria-row.component';
+import {NgForOf} from '@angular/common';
+import {Criteria} from "../models/Criteria";
+import {FilterService} from "../services/filter.service";
+import {catchError} from "rxjs";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-filter-dialog',
@@ -15,20 +15,16 @@ import { FilterService } from "../services/filter.service";
     ReactiveFormsModule,
     CriteriaRowComponent,
     NgForOf,
-    ResizableDirective,
   ],
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.css']
 })
 export class FilterDialogComponent implements OnInit {
-
   form: FormGroup;
-
   @Output() dialogTypeChange = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<FilterDialogComponent>,
-              private http: HttpClient,
               private filterService: FilterService,
               private cdr: ChangeDetectorRef) {
     this.form = this.formBuilder.group({
@@ -53,14 +49,12 @@ export class FilterDialogComponent implements OnInit {
     localStorage.setItem('dialogType', dialogType);
   }
 
-
   ngOnInit(): void {
     const dialogType = localStorage.getItem('dialogType') ?? 'modal';
     this.form.patchValue({ dialogType });
     this.cdr.detectChanges();
 
   }
-
   addRow() {
     (this.form.get('criteria') as FormArray).push(this.createCriteriaForm());
   }
@@ -92,28 +86,27 @@ export class FilterDialogComponent implements OnInit {
         metric = crit.criteriaMetric;
       }
       return {
-        type: crit.criteriaType,
-        comparator: crit.criteriaCondition,
+        type: crit.criteriaType.toUpperCase(),
+        condition: crit.criteriaCondition,
         metric: metric
       };
     });
-    if (criterias.length == 0) {
-      alert("Please add at least one Criteria!")
+    if (criterias.length < environment.minRequiredCriteria) {
+      alert(environment.notEnoughCriteriaMessage);
       return;
     }
     const filterDto = {
-      filterName: filterName,
+      name: filterName,
       criterias: criterias
     };
-    this.filterService.createNewFilter(filterDto).subscribe(
-      response => {
-        console.log(response);
-        this.dialogRef.close();
-      },
-      error => {
+    this.filterService.createNewFilter(filterDto).pipe(
+      catchError(error => {
         alert(error["error"]);
-      }
-    );
+        throw error;
+      })
+    ).subscribe(response => {
+      this.dialogRef.close()
+    });
     this.dialogRef.close();
   }
 

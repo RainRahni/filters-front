@@ -12,6 +12,5 @@ import {FilterDialogComponent} from "./filter-dialog/filter-dialog.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-
-  title = 'filters';
+  title = 'Filters';
 }

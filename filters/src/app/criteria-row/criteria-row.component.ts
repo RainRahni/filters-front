@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
@@ -13,19 +13,16 @@ import {NgForOf, NgIf} from "@angular/common";
   templateUrl: './criteria-row.component.html',
   styleUrl: './criteria-row.component.css'
 })
-export class CriteriaRowComponent implements OnInit {
+export class CriteriaRowComponent {
   @Output() remove = new EventEmitter<void>();
-  @Input() criteriaForm!: FormGroup;  // Accept form group as input
+  @Input() criteriaForm!: FormGroup;
 
   days: number[] = Array(31).fill(0).map((x,i)=>i+1);
   months: number[] = Array(12).fill(0).map((x,i)=>i+1);
   years: number[] = Array.from({length: 100}, (_, i) => new Date().getFullYear() - i);
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
   onRemove() {
     this.remove.emit();
   }
-
 }

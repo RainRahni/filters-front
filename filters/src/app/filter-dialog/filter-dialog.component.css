@@ -23,10 +23,8 @@
   align-items: center;
   justify-content: space-between;
 }
-
-
 form {
-  padding: 40px;
+  padding: 35px;
 }
 label {
   padding: 10px;
@@ -110,12 +108,10 @@ label {
   padding-left: 35px;
 
 }
-
 .mode-title {
   margin-right: 20px;
   font-weight: bold;
 }
-
 .radio-group {
   display: flex;
   align-items: center;
@@ -123,11 +119,8 @@ label {
 }
 
 .radio-group input[type="radio"] {
-  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
-.radio-group label {
-  margin-right: 20px;
-}
 
 

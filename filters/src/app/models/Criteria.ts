@@ -1,5 +1,5 @@
 export interface Criteria {
   type: string;
-  comparator: number;
+  condition: number;
   metric: string;
 }
