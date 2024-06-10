@@ -23,14 +23,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.resize-handle {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  cursor: nwse-resize;
-}
+
 
 form {
   padding: 40px;

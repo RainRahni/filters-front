@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
   standalone: true,
@@ -8,22 +8,23 @@ export class ResizableDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('mousedown', ['$event'])
-  onMousedown(event: MouseEvent) {
-    this.resize(event);
-  }
+  onMouseDown(event: MouseEvent): void {
+    event.preventDefault();
 
-  @HostListener('document:mousemove', ['$event'])
-  onMousemove(event: MouseEvent) {
-    this.resize(event);
-  }
+    const startY = event.clientY;
+    const startHeight = this.el.nativeElement.offsetHeight;
 
-  @HostListener('document:mouseup', ['$event'])
-  onMouseup(event: MouseEvent) {
-    this.resize(event);
-  }
+    const onMouseMove = (e: MouseEvent) => {
+      const newHeight = startHeight + e.clientY - startY;
+      this.renderer.setStyle(this.el.nativeElement, 'height', `${newHeight}px`);
+    };
 
-  resize(event: MouseEvent) {
-    const elementHeight = event.clientY - this.el.nativeElement.getBoundingClientRect().top;
-    this.renderer.setStyle(this.el.nativeElement, 'height', elementHeight + 'px');
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
   }
 }

@@ -5,4 +5,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .custom {
   --mat-dialog-container-max-width: 10000px;
   --mdc-dialog-container-shape: 0px;
+  resize: vertical;
+  overflow: auto;
+  min-height: 300px;
+  max-height: 100vh;
 }

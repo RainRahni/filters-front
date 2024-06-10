@@ -38,7 +38,6 @@ export class HomePageComponent implements OnInit {
     this.dialogRef = this.dialog.open(FilterDialogComponent, {
       width: '1000px',
       height: '500px',
-      maxHeight: '500px',
       hasBackdrop: this.isDialogModal,
       disableClose: this.isDialogModal,
       position: dialogType === 'nonmodal' ? { bottom: '0px' } : undefined,
