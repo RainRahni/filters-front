@@ -53,7 +53,6 @@ export class FilterDialogComponent implements OnInit {
     const dialogType = localStorage.getItem('dialogType') ?? 'modal';
     this.form.patchValue({ dialogType });
     this.cdr.detectChanges();
-
   }
   addRow() {
     (this.form.get('criteria') as FormArray).push(this.createCriteriaForm());
@@ -62,11 +61,10 @@ export class FilterDialogComponent implements OnInit {
   removeRow(index: number) {
     (this.form.get('criteria') as FormArray).removeAt(index);
   }
-
   private createCriteriaForm(): FormGroup {
     return this.formBuilder.group({
-      criteriaType: 'Amount',
-      criteriaCondition: 'More',
+      criteriaType: environment.defaultCriterionType,
+      criteriaCondition: '',
       criteriaMetric: '',
       day: '',
       month: '',
@@ -76,7 +74,7 @@ export class FilterDialogComponent implements OnInit {
 
   onSaveButtonClick() {
     const filterName = this.form.value.filterName;
-    const criterias: Criteria[] = this.form.value.criteria.map((crit: any) => {
+    const criteria: Criteria[] = this.form.value.criteria.map((crit: any) => {
       let metric;
       if (crit.criteriaType === 'Date') {
         const date = new Date(crit.year, crit.month - 1, crit.day);
@@ -91,13 +89,13 @@ export class FilterDialogComponent implements OnInit {
         metric: metric
       };
     });
-    if (criterias.length < environment.minRequiredCriteria) {
+    if (criteria.length < environment.minRequiredCriteria) {
       alert(environment.notEnoughCriteriaMessage);
       return;
     }
     const filterDto = {
       name: filterName,
-      criterias: criterias
+      criteria: criteria
     };
     this.filterService.createNewFilter(filterDto).pipe(
       catchError(error => {
@@ -107,7 +105,5 @@ export class FilterDialogComponent implements OnInit {
     ).subscribe(response => {
       this.dialogRef.close()
     });
-    this.dialogRef.close();
   }
-
 }
