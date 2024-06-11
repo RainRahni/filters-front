@@ -18,12 +18,15 @@
       <option>Before</option>
     </select>
     <select formControlName="day" class="date">
+      <option value="" disabled>DD</option>
       <option *ngFor="let day of days" [value]="day">{{day}}</option>
     </select>
     <select formControlName="month" class="date">
+      <option value="" disabled>MM</option>
       <option *ngFor="let month of months" [value]="month">{{month}}</option>
     </select>
     <select formControlName="year" class="date">
+      <option value="" disabled>YYYY</option>
       <option *ngFor="let year of years" [value]="year">{{year}}</option>
     </select>
   </ng-container>
