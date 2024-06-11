@@ -104,6 +104,7 @@ export class FilterDialogComponent implements OnInit {
       })
     ).subscribe(response => {
       this.dialogRef.close()
+      alert(environment.successfulSaveMessage)
     });
   }
 }
