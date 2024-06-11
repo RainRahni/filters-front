@@ -77,13 +77,9 @@ export class FilterDialogComponent implements OnInit {
     const criteria: Criteria[] = this.form.value.criteria.map((crit: any) => {
       let metric;
       if (crit.criteriaType === 'Date' && crit.year && crit.month && crit.day) {
-        console.log(crit.year);
-        console.log(crit.month);
-        console.log(crit.day);
         const date = new Date(crit.year, crit.month - 1, crit.day);
         metric = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}`;
         // 'YYYY-MM-DD'
-        console.log(metric);
       } else {
         metric = crit.criteriaMetric;
       }
